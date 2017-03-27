@@ -2,4 +2,3 @@
 
 It is a validation code demo
 
-The problem is why the picture cannot display normally.
