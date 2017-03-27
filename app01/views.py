@@ -14,13 +14,23 @@ def check_code(request):
 
     # 图片页面中显示,立即把session中的CheckCode更改为目前的随机字符串值
     request.session["CheckCode"] = code
-    return HttpResponse(stream.getvalue())
+    return HttpResponse(stream.getvalue(), "png")
 
     # 代码：生成一张图片，在图片中写文件
     # request.session['CheckCode'] =  图片上的内容
 
     # 自动生成图片，并且将图片中的文字保存在session中
     # 将图片内容返回给用户
+
+def yanzhengma(request):
+    import io
+    import check_code as CheckCode
+
+    stream = io.BytesIO()
+    img, code = CheckCode.create_validate_code()
+    img.save(stream, "png")
+    request.session["CheckCode"] = code
+    return HttpResponse(stream.getvalue())
 
 def login(request):
     if request.method == 'POST':
